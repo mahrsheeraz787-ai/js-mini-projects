@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Color Changer</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #fa2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        transition: background 0.5s ease;
+    }
+
+    .title {
+        margin: 12px;
+        color: #edd;
+        background: #a45908;
+        border-radius: 24px;
+        padding: 12px;
+    }
+
+    #Btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 12px;
+        transition: all .3s ease;
+        cursor: pointer;
+    }
+
+    #Btn:hover {
+        transform: translateY(-6px);
+        background-color: #ee46;
+        color: white;
+    }
+
+    #text {
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        color: red;
+    }
+</style>
+
+<body>
+    <h1 class="title">Background Color Changer</h1>
+
+    <button id="Btn">Change Color</button>
+    <p id="text"></p>
+    <script>
+        const colorBtn = document.getElementById('Btn');
+        const text = document.getElementById('text');
+        let randomIndex;
+        function randomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                let randomIndex = Math.floor(Math.random() * 16);
+                color += letters[randomIndex]
+            }
+            return color;
+        }
+        colorBtn.addEventListener('click', () => {
+            const color = randomColor();
+            document.body.style.background = color;
+            text.textContent = color;
+        })
+    </script>
+</body>
+
+</html>

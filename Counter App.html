@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(to right, #ee12, #4322);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .counter__app {
+        padding: 24px;
+        width: 100%;
+        max-width: 500px;
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        background: #a45541;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #1ee890;
+    }
+
+    .counter {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        width: 220px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        border-radius: 12px;
+    }
+
+    .counter button {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 20px;
+        transition: 0.3s;
+    }
+
+    .counter button:hover {
+        background-color: #333;
+        color: white;
+
+    }
+
+    #countNumber {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+    }
+
+    #reset {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 12px;
+        transition: all .3s ease;
+        cursor: pointer;
+    }
+
+    #reset:hover {
+        background-color: #4345;
+        color: white;
+    }
+
+    .counter button:disabled {
+        background-color: #999;
+        color: #ddd;
+        cursor: not-allowed;
+
+        opacity: 0.6;
+
+        transform: none;
+        box-shadow: none;
+    }
+</style>
+
+<body>
+    <div class="counter__app">
+        <h1>Counter App</h1>
+        <div class="counter">
+            <button id="decrease">-</button>
+            <span id="countNumber">0</span>
+            <button id="increase">+</button>
+        </div>
+        <button id="reset">Reset</button>
+    </div>
+    <script>
+        const decreaseBtn = document.getElementById('decrease');
+        const countNumber = document.getElementById('countNumber');
+        const increaseBtn = document.getElementById('increase');
+        const resetBtn = document.getElementById('reset');
+        let count = 0;
+        let maximumNumber = 10;
+        increaseBtn.addEventListener('click', () => {
+            count++;
+
+            updateCounter();
+        })
+        decreaseBtn.addEventListener('click', () => {
+            count--;
+
+            updateCounter();
+        })
+        resetBtn.addEventListener('click', () => {
+            count = 0;
+            updateCounter();
+        })
+        function updateCounter() {
+            increaseBtn.disabled = count >= maximumNumber
+            decreaseBtn.disabled = count <= 0;
+            if (count <= 0) {
+                decreaseBtn.disabled = true;
+            } else {
+                decreaseBtn.disabled = false;
+            }
+            if (count >= 5) {
+                countNumber.style.color = "pink";
+            }
+            else if (count > 0) {
+                countNumber.style.color = "lightgreen";
+            }
+            else {
+                countNumber.style.color = "white";
+            }
+            countNumber.textContent = count;
+        }
+        updateCounter();
+    </script>
+</body>
+
+</html>

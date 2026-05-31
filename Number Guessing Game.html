@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+</head>
+
+<body>
+    <h1>Number Guessing Game</h1>
+    <p>Guess the number between 1 and 100</p>
+    <input type="number" id="Guess" placeholder="Enter your guess">
+    <button type="button">Submit</button>
+    <div id="result"></div>
+    <script>
+        const guess = document.getElementById('Guess');
+        const button = document.querySelector('button');
+        const result = document.getElementById('result');
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let totalAttempts = 10;
+        let attempts = 10;
+        function guessNumber() {
+            const guessInput = Number(guess.value);
+            if (guess.value === "") {
+                alert("Please enter a number");
+                return;
+            }
+
+            if (guessInput < 1 || guessInput > 100) {
+                result.textContent = "Please enter number between 1 and 100";
+                return;
+            }
+
+            if (guessInput === randomNumber) {
+                const usedAttempts = totalAttempts - attempts + 1;
+                result.textContent = `You Win! Guessed in: ${usedAttempts} attempts`;
+                guess.disabled = true;
+                button.disabled = true;
+            } else {
+                attempts--
+                if (attempts === 0) {
+                    result.textContent = `Game Over! Number was ${randomNumber}`;
+                    guess.disabled = true;
+                    button.disabled = true;
+                } else if (guessInput > randomNumber) {
+                    result.textContent = `Too High! attempts left: ${attempts}`;
+                } else {
+                    result.textContent = `Too Low! attempts left: ${attempts}`;
+                }
+            }
+            guess.value = "";
+        }
+        guess.addEventListener('keydown', (e) => {
+            if (e.key === "Enter") {
+                guessNumber();
+            }
+        })
+        button.addEventListener('click', guessNumber);
+    </script>
+</body>
+
+</html>
